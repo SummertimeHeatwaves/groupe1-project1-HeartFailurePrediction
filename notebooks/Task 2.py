@@ -1,7 +1,4 @@
-"""
-TÂCHE 2 : Apply SMOTE to fix the class imbalance
-À coller dans une cellule de notebooks/eda.ipynb
-"""
+
 
 # ================================================================
 # ÉTAPE 1 : Imports
