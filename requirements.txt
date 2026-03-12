@@ -7,3 +7,5 @@ lightgbm
 shap
 streamlit
 pytest
+seaborn
+matplotlib
