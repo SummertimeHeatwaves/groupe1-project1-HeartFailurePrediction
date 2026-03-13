@@ -1,0 +1,30 @@
+
+╔══════════════════════════════════════════╗
+║     RAPPORT FINAL - HEART FAILURE        ║
+╠══════════════════════════════════════════╣
+║  Meilleur Modele : Random Forest          ║
+╠══════════════════════════════════════════╣
+║  METRIQUES FINALES                       ║
+╠══════════════════════════════════════════╣
+║  ROC-AUC           : 0.9063               ║
+║  Accuracy          : 0.8167               ║
+║  Precision         : 0.75                 ║
+║  Recall            : 0.6316               ║
+║  F1-Score          : 0.6857               ║
+╠══════════════════════════════════════════╣
+║  TOP 5 FEATURES SHAP                     ║
+╠══════════════════════════════════════════╣
+║  1. time                 : 0.1725          ║
+║  2. serum_creatinine     : 0.0974          ║
+║  3. ejection_fraction    : 0.0612          ║
+║  4. serum_sodium         : 0.0412          ║
+║  5. age                  : 0.0319          ║
+╠══════════════════════════════════════════╣
+║  GRAPHIQUES GENERES                      ║
+╠══════════════════════════════════════════╣
+║  -> evaluation_finale.png                ║
+║  -> shap_importance.png                  ║
+║  -> shap_beeswarm.png                    ║
+║  -> shap_dependence.png                  ║
+║  -> shap_waterfall.png                   ║
+╚══════════════════════════════════════════╝
