@@ -231,61 +231,12 @@ def feature_engineering(df: pd.DataFrame) -> pd.DataFrame:
 # ─────────────────────────────────────────────
 
 #def handle_class_imbalance(X: pd.DataFrame, y: pd.Series, method: str = "oversample", random_state: int = 42) -> tuple:
-    """
-    Handle class imbalance.
 
-    Methods available:
-      - 'oversample'    : random oversampling of minority class (no external lib needed)
-      - 'class_weight'  : returns sample_weight array for use in model (recommended fallback)
-      - 'none'          : no resampling (baseline)
-
-    Note: SMOTE (preferred) requires imbalanced-learn. We implement random oversampling
-    as a robust fallback that ships with zero extra dependencies. The train_model.py
-    script can use class_weight='balanced' in sklearn models as an alternative.
-    """
-    if method == "none":
-        print("[handle_class_imbalance] No resampling applied.")
-        return X, y
-
-    class_counts = y.value_counts()
-    majority_class = class_counts.idxmax()
-    minority_class = class_counts.idxmin()
-    n_majority = class_counts[majority_class]
-    n_minority = class_counts[minority_class]
-
-    print(f"[handle_class_imbalance] Before: {dict(class_counts)}")
-
-    if method == "oversample":
-        # Random oversampling: duplicate minority samples with replacement
-        rng = np.random.default_rng(random_state)
-        minority_idx = y[y == minority_class].index
-        n_to_add = n_majority - n_minority
-        sampled_idx = rng.choice(minority_idx, size=n_to_add, replace=True)
-        X_minority_up = X.loc[sampled_idx].copy()
-        y_minority_up = y.loc[sampled_idx].copy()
-        X_balanced = pd.concat([X, X_minority_up]).reset_index(drop=True)
-        y_balanced = pd.concat([y, y_minority_up]).reset_index(drop=True)
-        print(f"[handle_class_imbalance] After (oversample): {dict(y_balanced.value_counts())}")
-        return X_balanced, y_balanced
-
-    elif method == "class_weight":
-        # Return sample weights for use in ML estimators
-        n_total = len(y)
-        n_classes = 2
-        weights = {
-            0: n_total / (n_classes * class_counts[0]),
-            1: n_total / (n_classes * class_counts[1]),
-        }
-        sample_weights = y.map(weights).values
-        print(f"[handle_class_imbalance] Class weights computed: {weights}")
-        return X, y  # weights returned separately; caller should use sample_weight param
-
-    else:
-        raise ValueError(f"Unknown method '{method}'. Choose from: oversample, class_weight, none")
 def handle_class_imbalance(X_train, y_train, random_state=42):
     print(f"\n[handle_class_imbalance]")
     print(f"  Avant SMOTE : {dict(pd.Series(y_train).value_counts())}")
-
+    
+    from imblearn.over_sampling import SMOTE
     smote = SMOTE(random_state=random_state)
     X_bal, y_bal = smote.fit_resample(X_train, y_train)
 
