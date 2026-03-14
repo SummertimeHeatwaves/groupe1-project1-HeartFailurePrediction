@@ -246,6 +246,46 @@ def handle_class_imbalance(X_train, y_train, random_state=42):
     print(f"  Après SMOTE : {dict(y_bal.value_counts())} ✅")
     return X_bal, y_bal
 
+def run_preprocessing_pipeline(data_path="data/DATASET.csv"):
+    """
+    Exécute le pipeline complet: chargement, split, scaling, et SMOTE.
+    """
+    import pandas as pd
+    import os
+    import joblib
+    from sklearn.model_selection import train_test_split
+    from sklearn.preprocessing import StandardScaler
+
+    print("--- Lancement du Preprocessing Pipeline ---")
+    
+    # 1. Charger les données
+    df = pd.read_csv(data_path)
+    X = df.drop(columns=["DEATH_EVENT"])
+    y = df["DEATH_EVENT"]
+
+    # 2. Train / Test Split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+
+    # 3. Scaling (Standardisation)
+    scaler = StandardScaler()
+    X_train_scaled = pd.DataFrame(scaler.fit_transform(X_train), columns=X.columns)
+    X_test_scaled = pd.DataFrame(scaler.transform(X_test), columns=X.columns)
+
+    # Sauvegarder le scaler (Requis par le robot Pytest !)
+    os.makedirs("models", exist_ok=True)
+    joblib.dump(scaler, "models/scaler.pkl")
+
+    # 4. Equilibrer les classes avec SMOTE (Appelle votre fonction)
+    X_train_bal, y_train_bal = handle_class_imbalance(X_train_scaled, y_train)
+
+    print("--- Pipeline terminé avec succès ! ---")
+    return {
+        "X_train": X_train_bal,
+        "X_test": X_test_scaled,
+        "y_train": y_train_bal,
+        "y_test": y_test
+    }
+
 
 def compute_class_weights(y: pd.Series) -> dict:
     """Compute balanced class weights dict for sklearn estimators."""
