@@ -1,27 +1,3 @@
-
-import shap
-import joblib
-import pandas as pd
-import matplotlib.pyplot as plt
-
-model = joblib.load("models/best_model.pkl")
-feature_names = joblib.load("models/feature_names.pkl")
-df = pd.read_csv("data/data_processed.csv")
-
-X = df.drop("DEATH_EVENT", axis=1)[feature_names]
-
-explainer = shap.TreeExplainer(model)
-shap_values = explainer.shap_values(X, check_additivity=False)
-
-shap.summary_plot(shap_values, X, show=False)
-plt.savefig("notebooks/figures/shap_summary.png", bbox_inches="tight")
-plt.close()
-
-shap.summary_plot(shap_values, X, plot_type="bar", show=False)
-plt.savefig("notebooks/figures/shap_bar.png", bbox_inches="tight")
-plt.close()
-
-print("SHAP analysis terminée !")
 import os
 import sys
 import shap
@@ -50,7 +26,8 @@ def load_artifacts(model_dir: str = "models") -> tuple:
 def compute_shap_values(model, X_data: pd.DataFrame):
     logger.info(f"Computing SHAP values for {X_data.shape[0]} samples...")
     explainer = shap.TreeExplainer(model)
-    shap_values = explainer(X_data)
+    # The fix is added right here on the next line!
+    shap_values = explainer(X_data, check_additivity=False)
     logger.info("SHAP values computed successfully")
     return shap_values
 
@@ -131,4 +108,3 @@ if __name__ == "__main__":
     data = run_preprocessing_pipeline()
     model, scaler, features = load_artifacts()
     shap_values = generate_all_shap_plots(model, data["X_test"], features)
-
