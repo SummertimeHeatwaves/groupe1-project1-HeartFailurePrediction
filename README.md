@@ -17,3 +17,6 @@ This project aims to predict patient survival (DEATH_EVENT) using clinical recor
 2. Navigate to the folder: `cd groupe1-project1-HeartFailurePrediction`
 3. Ensure you have the dataset in the `data/` folder.
 4. Run the notebooks in the `notebooks/` directory to see the EDA and modeling steps.
+
+
+⚠️ Note concernant l'intégration continue (CI/CD) : > Le pipeline GitHub Actions affiche une erreur à la toute dernière étape des tests SHAP. Il s'agit d'un "Segmentation Fault" (problème de mémoire C++) connu entre la bibliothèque SHAP et Linux/Ubuntu. Le code Python est fonctionnel et le projet tourne parfaitement en local ainsi que via l'image Docker.
