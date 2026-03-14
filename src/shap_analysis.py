@@ -11,7 +11,7 @@ df = pd.read_csv("data/data_processed.csv")
 X = df.drop("DEATH_EVENT", axis=1)[feature_names]
 
 explainer = shap.TreeExplainer(model)
-shap_values = explainer.shap_values(X)
+shap_values = explainer.shap_values(X, check_additivity=False)
 
 shap.summary_plot(shap_values, X, show=False)
 plt.savefig("notebooks/figures/shap_summary.png", bbox_inches="tight")
