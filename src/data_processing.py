@@ -247,7 +247,7 @@ def handle_class_imbalance(X_train, y_train, random_state=42):
     return X_bal, y_bal
 
 
-#def compute_class_weights(y: pd.Series) -> dict:
+def compute_class_weights(y: pd.Series) -> dict:
     """Compute balanced class weights dict for sklearn estimators."""
     class_counts = y.value_counts()
     n_total = len(y)
