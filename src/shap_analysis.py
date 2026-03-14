@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+
 import shap
 import joblib
 import pandas as pd
@@ -22,7 +22,6 @@ plt.savefig("notebooks/figures/shap_bar.png", bbox_inches="tight")
 plt.close()
 
 print("SHAP analysis terminée !")
-=======
 import os
 import sys
 import shap
@@ -132,4 +131,4 @@ if __name__ == "__main__":
     data = run_preprocessing_pipeline()
     model, scaler, features = load_artifacts()
     shap_values = generate_all_shap_plots(model, data["X_test"], features)
->>>>>>> Stashed changes
+
