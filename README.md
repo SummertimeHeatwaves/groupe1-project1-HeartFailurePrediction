@@ -27,14 +27,7 @@ project/
 ├── requirements.txt
 └── README.md
 
-## 🚀 Quick Start (Local Setup)
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/SummertimeHeatwaves/groupe1-project1-HeartFailurePrediction.git](https://github.com/SummertimeHeatwaves/groupe1-project1-HeartFailurePrediction.git)
-   cd groupe1-project1-HeartFailurePrediction
-pip install -r requirements.txt
-streamlit run app/app.py
 
 
 ⚠️ Note concernant l'intégration continue (CI/CD) : > Le pipeline GitHub Actions affiche une erreur à la toute dernière étape des tests SHAP. Il s'agit d'un "Segmentation Fault" (problème de mémoire C++) connu entre la bibliothèque SHAP et Linux/Ubuntu. Le code Python est fonctionnel et le projet tourne parfaitement en local ainsi que via l'image Docker.
