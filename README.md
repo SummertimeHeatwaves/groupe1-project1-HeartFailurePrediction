@@ -1,22 +1,40 @@
-# Heart Failure Prediction Project ❤️📊
+# 🫀 Heart Failure Risk Predictor
+**Coding Week 09-15 March 2026 | École Centrale Casablanca**
 
-## Overview
-This project aims to predict patient survival (DEATH_EVENT) using clinical records. By applying machine learning models (Random Forest, XGBoost) and handling class imbalances, we are building a predictive tool to assist in medical data analysis.
+An advanced clinical decision-support tool predicting heart failure mortality risk using Explainable Machine Learning (SHAP).
 
-## Project Phases
-- [x] **Phase 1: Exploratory Data Analysis (EDA)** - Verified 0 missing values in the dataset.
-  - Analyzed outliers using boxplots and the IQR method.
-- [x] **Phase 2: Data Cleansing**
-  - Applied capping to extreme outliers (e.g., creatinine_phosphokinase) to preserve medical significance while improving model stability.
-  - Created `cleaned_dataset.csv`.
-- [ ] **Phase 3: Model Training** (In Progress)
-- [ ] **Phase 4: Web Application**
+---
 
-## How to Run This Project
-1. Clone the repository: `git clone https://github.com/SummertimeHeatwaves/groupe1-project1-HeartFailurePrediction.git`
-2. Navigate to the folder: `cd groupe1-project1-HeartFailurePrediction`
-3. Ensure you have the dataset in the `data/` folder.
-4. Run the notebooks in the `notebooks/` directory to see the EDA and modeling steps.
+## 📁 Project Structure
+
+```text
+project/
+├── data/                          # Dataset (CSV)
+├── models/                        # Saved model artifacts
+├── notebooks/
+│   └── eda.ipynb                  # Exploratory Data Analysis
+├── plots/                         # Generated SHAP & evaluation plots
+├── src/
+│   ├── data_processing.py         # Preprocessing pipeline + memory optimization
+│   ├── train_model.py             # Model training & selection
+│   └── evaluate_model.py          # Evaluation & SHAP computation
+├── app/
+│   └── app.py                     # Streamlit web interface
+├── tests/
+│   └── test_data_processing.py    # Automated tests (pytest)
+├── .github/workflows/ci.yml       # GitHub Actions CI/CD
+├── Dockerfile
+├── requirements.txt
+└── README.md
+
+## 🚀 Quick Start (Local Setup)
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/SummertimeHeatwaves/groupe1-project1-HeartFailurePrediction.git](https://github.com/SummertimeHeatwaves/groupe1-project1-HeartFailurePrediction.git)
+   cd groupe1-project1-HeartFailurePrediction
+pip install -r requirements.txt
+streamlit run app/app.py
 
 
 ⚠️ Note concernant l'intégration continue (CI/CD) : > Le pipeline GitHub Actions affiche une erreur à la toute dernière étape des tests SHAP. Il s'agit d'un "Segmentation Fault" (problème de mémoire C++) connu entre la bibliothèque SHAP et Linux/Ubuntu. Le code Python est fonctionnel et le projet tourne parfaitement en local ainsi que via l'image Docker.
